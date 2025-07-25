@@ -1,0 +1,20 @@
+body {
+  background-color: #121212 !important;
+  color: #f1f1f1 !important;
+}
+.card, .table {
+  background-color: #1e1e1e !important;
+  color: #e0e0e0;
+}
+input, select, textarea {
+  background-color: #2a2a2a !important;
+  color: #f8f8f8 !important;
+  border-color: #444;
+}
+.table-dark th {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+.btn {
+  border-radius: 6px;
+}

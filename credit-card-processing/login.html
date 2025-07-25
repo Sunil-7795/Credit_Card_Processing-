@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🔐 Login via OTP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/theme-toggle.js" defer></script>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #1f4037, #99f2c8);
+      min-height: 100vh;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+  </style>
+</head>
+<body class="text-dark">
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-primary px-3">
+  <span class="navbar-brand">💳 Credit Card Portal</span>
+  <button onclick="toggleTheme()" class="btn btn-outline-light">🌓 Toggle Theme</button>
+</nav>
+
+<!-- Alert Message -->
+<div class="container mt-4" id="alertBox"></div>
+
+<!-- Login Form -->
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card p-4 bg-white">
+        <h5 class="mb-4 text-center">🔐 Login via OTP</h5>
+        <form action="php/send_otp.php" method="POST">
+          <div class="mb-3">
+            <label class="form-label">📧 Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter your email" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">📤 Send OTP</button>
+        </form>
+        <div class="text-center mt-3">
+          <a href="register.html" class="text-decoration-none">📝 New here? Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const alertBox = document.getElementById("alertBox");
+
+  if (params.get("registered") === "success") {
+    alertBox.innerHTML = `
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ✅ Registration successful! Please log in.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`;
+  } else if (params.get("error") === "exists") {
+    alertBox.innerHTML = `
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        ⚠️ Email already registered. Please login.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`;
+  } else if (params.get("error") === "failed") {
+    alertBox.innerHTML = `
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        ❌ Registration failed. Please try again.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`;
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

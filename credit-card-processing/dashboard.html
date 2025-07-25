@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💳 Dashboard - Credit Card Processing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light text-dark">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4">
+  <a class="navbar-brand" href="#">💳 Dashboard</a>
+  <span class="text-white ms-auto me-3" id="userEmail">👤 </span>
+  <a href="php/logout.php" class="btn btn-outline-light">🚪 Logout</a>
+</nav>
+
+<div class="container mt-4">
+
+  <!-- Summary Section -->
+  <div class="row text-center mb-4">
+    <div class="col-md-4">
+      <div class="card bg-info text-white shadow">
+        <div class="card-body">
+          Available Balance
+          <h4 id="available-balance">₹0</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-success text-white shadow">
+        <div class="card-body">
+          Total Spent Today
+          <h4 id="today-total">₹0</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-warning text-dark shadow">
+        <div class="card-body">
+          Highest Payment Today
+          <h4 id="max-transaction">₹0</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Payment Form -->
+    <div class="col-md-5">
+      <div class="card p-4">
+        <h5 class="mb-3">➕ Add Transaction</h5>
+        <form id="paymentForm">
+          <input type="text" class="form-control mb-2" name="card_holder" placeholder="Card Holder Name" required>
+          <input type="text" class="form-control mb-2" name="card_number" placeholder="Card Number" required maxlength="16">
+          <input type="text" class="form-control mb-2" name="expiry_date" placeholder="Expiry (MM/YY)" required>
+          <input type="number" class="form-control mb-3" name="amount" placeholder="Amount ₹" required>
+          <button type="submit" class="btn btn-success w-100">💸 Process Payment</button>
+        </form>
+        <div id="formStatus" class="mt-2 text-center"></div>
+      </div>
+    </div>
+
+    <!-- Transactions -->
+    <div class="col-md-7">
+      <div class="card p-4">
+        <h5 class="mb-3">📄 Transaction History</h5>
+
+        <!-- Filter -->
+        <div class="row g-2 mb-3">
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="filterCard" placeholder="Search by Card Number">
+          </div>
+          <div class="col-md-6">
+            <input type="date" class="form-control" id="filterDate">
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm text-center">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Holder</th>
+                <th>Card</th>
+                <th>Amount</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsTable">
+              <!-- JS will inject rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 📊 Analytics Section -->
+  <div class="mt-5">
+    <button class="btn btn-outline-primary w-100 mb-3" onclick="toggleAnalytics()">📊 View Analytics</button>
+
+    <div id="analyticsSection" style="display:none;">
+      <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>📈 Analytics Overview</h5>
+          <div>
+            <button class="btn btn-sm btn-secondary me-2" onclick="toggleAnalytics()">🔙 Back</button>
+            <a href="php/logout.php" class="btn btn-sm btn-danger">🚪 Logout</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <canvas id="lineChart"></canvas>
+          </div>
+          <div class="col-md-6 mb-4">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
